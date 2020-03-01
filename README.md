@@ -1,0 +1,2 @@
+# lucru_individual_1
+LucruIndividualOOP
