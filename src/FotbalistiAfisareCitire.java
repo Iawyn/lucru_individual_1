@@ -1,92 +1,123 @@
-import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import static java.lang.System.*;
 import static java.lang.System.out;
 
+/*
+
+clasa folosita pentru citirea si afisarea datelor de la tastatura
+        pentru tipul de date fotbalist
+*/
+
+
+//citirea tipului de date fotbalisti care vor fi introdusi in array-ul dinamic sportivi unde se vor afla si alte tipuri de date
 
 class FotbalistiAfisareCitire {
-    public static void CitireaFotbalisti(ArrayList<Sportivi> Sportivi, Scanner scanner, int n) {
-        for (int i = 0; i < n; i++) {
-            out.print("cod: ");
-            int cod = scanner.nextInt();
+        public static Fotbal CitireaFotbalisti(Scanner scanner, int n) throws InputMismatchException {
 
-            out.println("\n");
+            out.println("======================================");
+            out.println("Citirea datelor despre fotbalisti : ");
+            out.println("======================================");
 
-            out.print("Nume: ");
-            String nume = scanner.next();
+//Initializarea variabilileor care vor fi servite drept parametri a obiectelor create
+            int cod = 0;
+            String nume = null;
+            String prenume = null;
+            String gen = null;
+            double InaltimeaInCentimentri = 0;
+            double GreutateaInKilograme = 0;
+            String dataNasterii = null;
+            boolean StudiiSuperioare = false;
+            String echipa = null;
+            String divizie = null;
+            String pozitie = null;
+            int goluri = 0;
+            int assistari = 0;
+            double pretJucator = 0;
 
-            out.println("\n");
+         try {
+             for (int i = 0; i < n; i++) {
+                 out.print("cod: ");
+                 cod = scanner.nextInt();
 
-            out.print("Prenume: ");
-            String prenume = scanner.next();
+                 out.println("\n");
 
-            out.println("\n");
+                 out.print("Nume: ");
+                 nume = scanner.next();
 
-            out.print("gen: ");
-            String gen = scanner.next();
+                 out.println("\n");
 
-            out.println("\n");
+                 out.print("Prenume: ");
+                 prenume = scanner.next();
 
-            out.print("Inaltimea: ");
-            double InaltimeaInCentimentri = scanner.nextDouble();
+                 out.println("\n");
 
-            out.println("\n");
+                 out.print("gen: ");
+                 gen = scanner.next();
 
-            out.print("Masa: ");
-            double GreutateaInKilograme = scanner.nextDouble();
+                 out.println("\n");
 
-            out.println("\n");
+                 out.print("Inaltimea: ");
+                 InaltimeaInCentimentri = scanner.nextDouble();
 
-            out.print("Data Nasterii: MM/DD/YY");
-            String dataNasterii = scanner.next();
+                 out.println("\n");
 
-            out.println("\n");
+                 out.print("Masa: ");
+                 GreutateaInKilograme = scanner.nextDouble();
+
+                 out.println("\n");
+
+                 out.print("Data Nasterii (MM/DD/YY): ");
+                 dataNasterii = scanner.next();
+
+                 out.println("\n");
 
 
-            out.print("Studii Superioare: ");
-            boolean StudiiSuperioare = scanner.hasNext();
+                 out.print("Studii Superioare: ");
+                 StudiiSuperioare = scanner.nextBoolean();
 
-            out.print("echipa: ");
-            String echipa = scanner.next();
+                 out.println("\n");
 
-            out.println("\n");
+                 scanner.nextLine();
 
-            out.print("divizie: ");
-            String divizie = scanner.next();
+                 out.print("echipa: ");
+                 echipa = scanner.nextLine();
 
-            out.println("\n");
+                 out.println("\n");
 
-            out.print("pozitie: ");
-            String pozitie = scanner.next();
+                 out.print("divizie: ");
+                 divizie = scanner.nextLine();
 
-            out.println("\n");
+                 out.println("\n");
 
-            out.print("goluri: ");
-            int goluri = scanner.nextInt();
+                 out.print("pozitie: ");
+                 pozitie = scanner.nextLine();
 
-            out.println("\n");
+                 out.println("\n");
 
-            out.print("asistari: ");
-            int assistari = scanner.nextInt();
+                 out.print("goluri: ");
+                 goluri = scanner.nextInt();
 
-            out.println("\n");
+                 out.println("\n");
 
-            out.print("pretul jucatorului: ");
-            double pretJucator = scanner.nextDouble();
+                 out.print("asistari: ");
+                 assistari = scanner.nextInt();
 
-            out.println("\n");
+                 out.println("\n");
 
-            Sportivi.add(new Fotbal(cod, nume, prenume, gen, dataNasterii, GreutateaInKilograme, InaltimeaInCentimentri,
-                    StudiiSuperioare, echipa, divizie, pozitie, goluri, assistari, pretJucator));
+                 out.print("pretul jucatorului: ");
+                pretJucator = scanner.nextDouble();
+
+                 out.println("\n");
+
+             }
+         }catch (java.util.InputMismatchException e) //exceptie ce verifica daca toate datele au fost introduse conform tipului de date
+             {
+                 scanner.next();
+                 out.println("Tipul de date este introdus gresit");
+             }
+
+         //returnam obiectul creat care il putem adauga pe parcurs in array-ul dinamic
+            return new Fotbal(cod, nume, prenume, gen, dataNasterii, GreutateaInKilograme, InaltimeaInCentimentri,
+                    StudiiSuperioare, echipa, divizie, pozitie, goluri, assistari, pretJucator);
         }
-    }
-
-    public static void Afisare(ArrayList<Sportivi> Sportivi)
-    {
-        for(int i = 0; i < Sportivi.size(); i++)
-        {
-            Sportivi.get(i).afisare();
-        }
-    }
 }

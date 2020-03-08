@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-
 import static java.lang.System.*;
 
 
@@ -62,7 +60,7 @@ public class Fotbal extends Sportivi
         return pretJucator;
     }
 
-    @Override
+    @Override //suprascriem metode afisare pentru a adauga parametir noi de afisare
     void afisare()
     {
         super.afisare();

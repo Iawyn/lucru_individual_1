@@ -48,7 +48,7 @@ public class Tenis extends Sportivi
     }
 
     @Override
-    void afisare()
+    void afisare() //suprascriem metode afisare pentru a adauga parametir noi de afisare
     {
         super.afisare();
         out.println("rank : " + rank);

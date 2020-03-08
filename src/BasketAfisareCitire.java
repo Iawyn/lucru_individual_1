@@ -1,96 +1,124 @@
-import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import static java.lang.System.*;
 import static java.lang.System.out;
 
+/*
 
+clasa folosita pentru citirea si afisarea datelor de la tastatura
+        pentru tipul de date basket
+*/
+
+//citirea tipului de date basket care vor fi introdusi in array-ul dinamic sportivi unde se vor afla si alte tipuri de date
 class BasketAfisareCitire
 {
-    public static void CitireaBasketball(ArrayList<Sportivi> Sportivi, Scanner scanner, int n) {
-        for (int i = 0; i < n; i++) {
-            out.print("cod: ");
-            int cod = scanner.nextInt();
+    public static Basketball CitireaBasketball(Scanner scanner, int n) throws InputMismatchException {
 
-            out.println("\n");
+        out.println("======================================");
+        out.println("Citirea datelor desper Basketbalisti: ");
+        out.println("======================================");
 
-            out.print("Nume: ");
-            String nume = scanner.next();
+        int cod = 0;
+        String nume = null;
+        String prenume = null;
+        String gen = null;
+        double InaltimeaInCentimentri = 0;
+        double GreutateaInKilograme = 0;
+        String dataNasterii = null;
+        boolean StudiiSuperioare = false;
+        String echipa = null;
+        String divizie = null;
+        String pozitie = null;
+        String liga = null;
+        int Marcari2Puncte = 0;
+        int Marcari3Puncte = 0;
+        double pretJucator = 0;
 
-            out.println("\n");
+        try {
+            for (int i = 0; i < n; i++) {
+                 out.print("cod: ");
+                 cod = scanner.nextInt();
 
-            out.print("Prenume: ");
-            String prenume = scanner.next();
+                out.print("\n");
 
-            out.println("\n");
+                out.print("Nume: ");
+                nume = scanner.next();
 
-            out.print("gen: ");
-            String gen = scanner.next();
+                scanner.nextLine();
+                out.print("\n");
 
-            out.println("\n");
+                out.print("Prenume: ");
+                prenume = scanner.next();
 
-            out.print("Inaltimea: ");
-            double InaltimeaInCentimentri = scanner.nextDouble();
+                out.print("\n");
 
-            out.println("\n");
+                scanner.nextLine();
 
-            out.print("Masa: ");
-            double GreutateaInKilograme = scanner.nextDouble();
+                out.print("gen: ");
+                gen = scanner.nextLine();
 
-            out.println("\n");
+                out.println("\n");
 
-            out.print("Data Nasterii: MM/DD/YY");
-            String dataNasterii = scanner.next();
+                out.print("Inaltimea: ");
+                InaltimeaInCentimentri = scanner.nextDouble();
 
-            out.println("\n");
+                out.println("\n");
+
+                out.print("Masa: ");
+                GreutateaInKilograme = scanner.nextDouble();
+
+                out.println("\n");
+
+                out.print("Data Nasterii (MM/DD/YY) : ");
+                dataNasterii = scanner.next();
+
+                out.println("\n");
 
 
-            out.print("Studii Superioare: ");
-            boolean StudiiSuperioare = scanner.hasNext();
+                out.print("Studii Superioare: ");
+                StudiiSuperioare = scanner.nextBoolean();
 
-            out.print("echipa: ");
-            String echipa = scanner.next();
+                out.println("\n");
+                scanner.nextLine();
 
-            out.println("\n");
+                out.print("echipa: ");
+                echipa = scanner.nextLine();
 
-            out.print("divizie: ");
-            String divizie = scanner.next();
+                out.println("\n");
 
-            out.println("\n");
+                out.print("divizie: ");
+                divizie = scanner.nextLine();
 
-            out.print("liga: ");
-            String liga = scanner.next();
+                out.println("\n");
 
-            out.println("\n");
+                out.print("liga: ");
+                liga = scanner.nextLine();
 
-            out.print("pozitie: ");
-            String pozitie = scanner.next();
+                out.println("\n");
 
-            out.println("\n");
+                out.print("pozitie: ");
+                pozitie = scanner.nextLine();
 
-            out.print("Marcari2Puncte: ");
-            int Marcari2Puncte = scanner.nextInt();
+                out.println("\n");
 
-            out.println("\n");
+                out.print("Marcari2Puncte: ");
+                Marcari2Puncte = scanner.nextInt();
 
-            out.print("Marcari3Puncte: ");
-            int Marcari3Puncte = scanner.nextInt();
+                out.println("\n");
 
-            out.println("\n");
+                out.print("Marcari3Puncte: ");
+                Marcari3Puncte = scanner.nextInt();
 
-            out.print("Pret jucator: ");
-            double pret = scanner.nextInt();
+                out.println("\n");
 
-            Sportivi.add(new Basketball(cod, nume, prenume, gen, dataNasterii, GreutateaInKilograme, InaltimeaInCentimentri,
-                    StudiiSuperioare, echipa, divizie, pozitie, liga, Marcari2Puncte, Marcari3Puncte, pret));
-        }
-    }
-
-    public static void Afisare(ArrayList<Sportivi> Sportivi)
-    {
-        for(int i = 0; i < Sportivi.size(); i++)
+                out.print("Pret jucator: ");
+                pretJucator = scanner.nextInt();
+            }
+        }catch(java.util.InputMismatchException e)
         {
-            Sportivi.get(i).afisare();
+            scanner.next();
+            out.println("Tipul de date este introdus gresit");
         }
+        return new Basketball(cod, nume, prenume, gen, dataNasterii, GreutateaInKilograme, InaltimeaInCentimentri,
+                StudiiSuperioare, echipa, divizie, pozitie, liga, Marcari2Puncte, Marcari3Puncte, pretJucator);
     }
 }

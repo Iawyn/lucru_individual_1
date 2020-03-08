@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import static java.lang.System.*;
 
 public class Basketball extends Sportivi
@@ -61,7 +60,7 @@ public class Basketball extends Sportivi
     }
 
     @Override
-    void afisare()
+    void afisare() //suprascriem metode afisare pentru a adauga parametir noi de afisare
     {
         super.afisare();
         out.println("Divizie: " + getDivizie());

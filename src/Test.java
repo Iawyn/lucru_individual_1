@@ -1,157 +1,194 @@
-import java.time.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.System.*;
 
+//clasa pentru testarea solutiilor pentru exercitiile propuse fara a introduce date de la tastatura
 
 public class Test
 {
 
-    public static ArrayList<Sportivi> sportivi = new ArrayList<Sportivi>();
-    public static Scanner sc = new Scanner(System.in);
+    public static ArrayList<Sportivi> sportivi = new ArrayList<>(); //Array-uL dinamic global care va fi folosit pentru prelucrarea datelor si condiitlor
+    public static Scanner sc = new Scanner(System.in); //Scanner global care va fi acceptat ca argument in fiecare metoda pentru a evita redeclararea
+
+    public static void menu(Scanner sc) throws IOException //menu
+    {
+        boolean conditie = true; //conditia de rulare a menu-lui
+
+        while (conditie) {
+            out.println("\t \t \t \t \t \t Menu");
+            out.println("---------------------------------------------------------");
+            out.println("1) Introducerea Datelor: ");
+            out.println("2) Afisarea Datelor Introduse: ");
+            out.println("3) Afișarea celui mai în vârstă sportiv care practică fotbal: ");
+            out.println("4) Afișarea greutății medii a tuturor sportivilor: ");
+            out.println("5) Afișarea listei sportivilor de gen feminin, sub 12 ani care practică tenisul: ");
+            out.println("6) Afișarea denumirii probei practicată de cel mai înalt sportiv: ");
+            out.println("7) Afișarea datelor celui mai înalt sportiv de gen feminin care practică înotul și are studii superioare: ");
+            out.println("8) 0 pentru a iesi din menu");
+            out.println("---------------------------------------------------------");
+
+            int userInput = sc.nextInt();
+
+            out.println("---------------------------------------------------------");
+
+            try {
+                switch (userInput) {
+                    case 1: {
+                        out.println("Cati Fotbalisti doriti sa introduceti: ");
+                        int nFotbal = sc.nextInt();
+
+                        sportivi.add(FotbalistiAfisareCitire.CitireaFotbalisti(sc, nFotbal));
+
+                        out.println("Cati Basketbalisti doriti sa introduceti: ");
+                        int nBasket = sc.nextInt();
+
+                        sportivi.add(BasketAfisareCitire.CitireaBasketball(sc, nBasket));
+
+                        out.println("Cati Inotatori doriti sa introduceti:  ");
+                        int nInot = sc.nextInt();
+
+                        sportivi.add(InotAfisareCitire.CitireaInotatori(sc, nInot));
+
+                        out.println("Cati Tenisisti doriti sa introduceti: ");
+                        int nTenisisti = sc.nextInt();
+
+                        sportivi.add(TennisAfisareCitire.CitireaTenis(sc, nTenisisti));
+                        break;
+                    }
+                    case 2: {
+                        for (Sportivi value : sportivi) {
+                            value.afisare();
+                        }
+                        out.println("\n");
+                        break;
+                    }
+                    case 3: {
+                        //Afișarea celui mai în vârstă sportiv care practică fotbal;
+
+                        out.println("-------------------------------------------------");
+
+                        int celMaiInVarstaSportiv = 0;
+
+                        for (Sportivi item : sportivi) {
+                            if (item.getProbaSportiva().equals("Fotbal")) {
+                                if (celMaiInVarstaSportiv < item.getVarsta()) {
+                                    celMaiInVarstaSportiv = item.getVarsta();
+                                }
+                            }
+
+                            if (item.getVarsta() == celMaiInVarstaSportiv) {
+                                out.println("Cel mai in varsta sportiv care practica fotbali: ");
+                                item.afisare();
+                            }
+                        }
+
+                        out.println("-------------------------------------------------");
+                        out.println("\n");
+
+                        break;
+
+                    }
+                    case 4: {
+                        //Afișarea greutății medii a tuturor sportivilor;
+
+                        out.println("-------------------------------------------------");
+
+                        double medie = 0;
+
+                        for (int i = 0; i < sportivi.size(); i++) {
+                            medie = sportivi.get(i).getGreutateInKilograme() / i;
+                        }
+
+                        out.printf("Greutatea medie a tuturor sportivilor este : %.2f", medie);
+                        out.println("\n");
+
+                        out.println("-------------------------------------------------");
+                        out.println("\n");
+                        break;
+                    }
+                    case 5: {
+                        //Afișarea listei sportivilor de gen feminin, sub 12 ani care practică tenisul;
+                        out.println("-------------------------------------------------");
+
+                        out.println("Lista sportivilor de gen femenin sub 12 ani care joaca Tenis : ");
+
+                        for (Sportivi value : sportivi) {
+                            if (value.getProbaSportiva().equals("tenis")) {
+                                if (value.getGen().equals("femenin")) {
+                                    if (value.getVarsta() <= 12) {
+                                        value.afisare();
+                                    }
+                                }
+                            }
+                        }
+                        out.println("-------------------------------------------------");
+                        out.println("\n");
+                        break;
+                    }
+                    case 6: {
+                        //Afișarea denumirii probei practicată de cel mai înalt sportiv;
+                        out.println("-------------------------------------------------");
+
+                        double inaltimeMax = 0;
+
+                        for (Sportivi value : sportivi) {
+                            if (value.getInaltimeaInCentimetri() > inaltimeMax) {
+                                inaltimeMax = value.getInaltimeaInCentimetri();
+                            }
+
+                            if (value.getInaltimeaInCentimetri() == inaltimeMax) {
+                                out.println("Proba sportiva practicata de cel mai inalt sportiv este : " + value.getProbaSportiva());
+                            }
+                        }
+
+                        out.println("\n");
+                        break;
+                    }
+                    case 7: {
+                        // Afișarea datelor celui mai înalt sportiv de gen feminin care practică înotul și are studii superioare.
+                        out.println("-------------------------------------------------");
+
+                        double ceaMaiInaltaFemeie = 0;
+
+                        for (Sportivi value : sportivi) {
+                            if (value.getGen().equals("Femenin")) {
+                                if (value.getInaltimeaInCentimetri() > ceaMaiInaltaFemeie) {
+                                    if (value.getStudiiSuperioare()) {
+                                        if (value.getProbaSportiva().equals("inot")) {
+                                            value.afisare();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        out.println("-------------------------------------------------");
+                        out.println("\n");
+                        break;
+                    }
+                    case 0: { //in cazul in care introducem 0 variabila de tip boolean se va redefini in false ceea ce va opri while loop-ul
+                        conditie = false;
+                    }
+
+                }
+            } catch (IllegalArgumentException e) { //exceptie pentru tipul de date introdus gresit
+                out.println("ati introdus tipul de date gresit");
+                e.printStackTrace();
+            }
+
+            System.in.read(); //la apasarea butonului enter menu-ul va aparea din nou
+
+        }
+    }
+
 
     public static void main(String[] args)
     {
-
-        Sportivi fotbalist1 = new Fotbal(1, "Ion", "Vasile", "Masculin","10/02/2002",
-                62.2, 1.80, false, "Bayern Munich", "Bundesliga", "Mijlocas-Central", 13, 0, 4421412);
-        Sportivi fotbalist2 = new Fotbal(2, "Bogdan", "Nurmagomedov", "Masculin","10/12/2002",
-                80, 1.60, false, "Real Madrid", "LaLiga", "Atacant-Central", 50, 3, 421412);
-
-        Sportivi basketbalist1 = new Basketball(3, "Dan", "Bryant", "Masculin", "10/02/2008", 78.9, 1.96, false, "Chicago Bulls", "Liga Nord Americana",
-                "NBL", "Dunker", 30, 63, 5215125);
-        Sportivi basketbalist2 = new Basketball(3, "Dan", "Bryant", "Masculin","05/10/1972", 80.5, 2.03, true, "Miami Heat",  "Liga Nord Americana",
-                "NBL", "Defender", 55, 123, 231215125);
-
-        Sportivi Tenisista1 = new Tenis(4, "Valeria", "Cuteleaba", "Femenin","05/01/2010", 45.5, 1.60, false, 103,
-                "Juniori", 10, 1);
-
-        Sportivi Tenisista2 = new Tenis(5, "Daniela", "ManaScurta", "Femenin","05/01/2012", 35.5, 1.56, false, 103,
-                "Juniori", 5, 0);
-
-        Sportivi Inotator1 = new Inot(6, "Valeria", "Robu", "Femenin","05/01/1990", 65.3, 1.72, true, 23,
-                "Divizia1", "Seniori", "Moldova");
-
-        Sportivi Inotator2 = new Inot(7, "Inna", "Salimer", "Femenin","05/01/2000", 85.3, 1.72, false, 23,
-                "Divizia3", "Majori", "Romania");
-
-        sportivi.add(fotbalist1);
-        sportivi.add(fotbalist2);
-        sportivi.add(basketbalist1);
-        sportivi.add(basketbalist2);
-        sportivi.add(Tenisista1);
-        sportivi.add(Tenisista2);
-        sportivi.add(Inotator1);
-        sportivi.add(Inotator2);
-
-
-        int celMaiInVarstaSportiv = 0;
-
-        for(int i = 0; i < sportivi.size(); i++)
-        {
-            if(celMaiInVarstaSportiv < sportivi.get(i).getVarsta())
-            {
-                celMaiInVarstaSportiv = sportivi.get(i).getVarsta();
-            }
+        try {
+            menu(sc);
+        } catch (IOException e) { //exceptie pentru parametri de tip de date introdus gresit
+            e.printStackTrace();
         }
-
-        out.println("Cel mai invarsta spartsmen: " + celMaiInVarstaSportiv);
-
-        double medie = 0;
-
-        for(int i = 0; i < sportivi.size(); i++)
-        {
-            medie = sportivi.get(i).getGreutateInKilograme() / i;
-        }
-
-        out.printf("mediaGreutate: %.2f", medie);
-
-
-        out.println("Lista sportivilor de gen femenin sub 12 ani care joaca Tenis: ");
-
-        for(int i = 0; i < sportivi.size(); i++)
-        {
-            if(sportivi.get(i).getProbaSportiva() == "tenis")
-            {
-                if(sportivi.get(i).getVarsta() <= 12)
-                {
-                    sportivi.get(i).afisare();
-                }
-            }
-        }
-
-        double inaltimeMax = 0;
-        String ProbaInaltimeMaX = null;
-
-        for(int i = 0; i < sportivi.size(); i++)
-        {
-            if(sportivi.get(i).getInaltimeaInCentimetri() > inaltimeMax)
-            {
-                inaltimeMax = sportivi.get(i).getInaltimeaInCentimetri();
-                ProbaInaltimeMaX = sportivi.get(i).getProbaSportiva();
-            }
-        }
-
-        out.print("Proba sportiva practicata de cel mai inalt sportiv este: " + ProbaInaltimeMaX);
-
-
-        out.println("cea mai inalta femeie cu studii superioare ce practica inotul: ");
-
-        double ceaMaiInaltaFemeie = 0;
-
-        for(int i = 0; i < sportivi.size(); i++)
-        {
-            if(sportivi.get(i).getGen() == "Femenin")
-            {
-                if(sportivi.get(i).getInaltimeaInCentimetri() > ceaMaiInaltaFemeie)
-                {
-                    if(sportivi.get(i).getStudiiSuperioare() == true)
-                    {
-                        if (sportivi.get(i).getProbaSportiva() == "inot")
-                        {
-                            sportivi.get(i).afisare();
-                        }
-                    }
-                }
-            }
-        }
-
     }
 
-    static void FotbalAfisareCitire(Scanner sc)
-    {
-        out.println("Cati Fotbalisti doriti sa introduceti: ");
-        int n = sc.nextInt();
-
-        FotbalistiAfisareCitire.CitireaFotbalisti(sportivi, sc, n );
-        FotbalistiAfisareCitire.Afisare(sportivi);
-    }
-
-    static void BasketAfisareCitire(Scanner sc)
-    {
-        out.println("Cati basketbalisti doriti sa introduceti: ");
-        int n = sc.nextInt();
-
-        BasketAfisareCitire.CitireaBasketball(sportivi, sc, n);
-        BasketAfisareCitire.Afisare(sportivi);
-    }
-
-    static void TenisAfisareCitire(Scanner sc)
-    {
-        out.println("Cati tenisisti doriti sa introduceti: ");
-        int n = sc.nextInt();
-
-        TennisAfisareCitire.CitireaTenis(sportivi, sc, n);
-        TennisAfisareCitire.Afisare(sportivi);
-    }
-
-    static void InotAfisareCitire(Scanner sc)
-    {
-        out.println("Cati Inotatori doriti sa introduceti: ");
-        int n = sc.nextInt();
-
-        InotAfisareCitire.CitireaInotatori(sportivi, sc , n);
-        InotAfisareCitire.Afisare(sportivi);
-
-    }
 }

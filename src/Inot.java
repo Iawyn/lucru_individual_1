@@ -1,3 +1,5 @@
+import static java.lang.System.out;
+
 class Inot extends Sportivi
 {
     int rank;
@@ -40,5 +42,16 @@ class Inot extends Sportivi
     String getNationala()
     {
         return nationala;
+    }
+
+    @Override
+    void afisare() //suprascriem metode afisare pentru a adauga parametir noi de afisare
+    {
+        super.afisare();
+        out.println("rank: " + getRank());
+        out.println("divizie: " + getDivizie());
+        out.println("categorie: " + getCategorie());
+        out.println("nationala: " + getNationala());
+        out.println("============================================");
     }
 }

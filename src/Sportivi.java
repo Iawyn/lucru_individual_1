@@ -1,6 +1,6 @@
 import static java.lang.System.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatter; //librarie ce ne va permite sa lucram cu tipul de date DATE si prelucrarea unei dati calendaristice
 
 class Sportivi
 {
@@ -46,7 +46,7 @@ class Sportivi
         return StudiiSuperioare;
     }
 
-    LocalDate DataNasterii()
+    LocalDate DataNasterii() //data a fost initial de tip de date String si acum va fi convertita in tipul de date LocalDate ce ne va permite sa efectuam oepratii cu Data calendaristica
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         return LocalDate.parse(DataNasterii, formatter);
@@ -72,13 +72,12 @@ class Sportivi
         return "default";
     }
 
-    int getVarsta()
+    int getVarsta() //cu ajutorul tipului de date LocalDate efectuam operatii pentru a afla varsta sportivului nostru
     {
         LocalDate now = LocalDate.now();
         Period p = Period.between(DataNasterii(), now);
-        int Varsta = p.getYears();
 
-        return Varsta;
+        return p.getYears();
 
     }
 
